@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
 import { resolve } from 'path';
 import BlingScraper from './src/scrapers/BlingScraper.js';
+import fexcelToJson from './src/utils/excelToJson.js';
 
 (async () => {
   // Launch the browser and open a new blank page
@@ -9,7 +10,8 @@ import BlingScraper from './src/scrapers/BlingScraper.js';
     slowMo: 10,
     devtools: true,
     userDataDir: resolve(process.cwd(), 'temp'),
-    defaultViewport: { width: 1080, height: 1024 },
+    defaultViewport: { width: 1366, height: 768 },
+    // defaultViewport: { width: 1080, height: 1024 },
   });
 
   await browser.newPage()
@@ -36,6 +38,11 @@ import BlingScraper from './src/scrapers/BlingScraper.js';
     if (tries == 0) {
       console.log('Tentativas de Login na plataforma BLING ESGOTADAS!');
     }
+  }
+
+  if (statusLoginBling) {
+    const pegaListaClientes = await blingScraper.buscaListaClientes();
+    await fexcelToJson()
   }
 
 })();

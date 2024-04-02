@@ -10,6 +10,7 @@ class Scraper {
   constructor(page) {
     this.page = page;
   }
+
   async login() {
     return new Promise(async (resolve, reject) => {
       try {
@@ -74,6 +75,53 @@ class Scraper {
 
     })
   }
+
+  async buscaListaClientes() {
+    return new Promise(async (resolve) => {
+      try {
+        console.log('BUSCANDO lista de clientes');
+        await this.page.waitForSelector('button[id="dtButton"]');
+        await (await this.page.$('button[id="dtButton"]')).click();
+        await delay(1000);
+
+        await this.page.waitForSelector("#dialog-picker > div.input-daterange > ul > li:nth-child(6)");
+        await (await this.page.$("#dialog-picker > div.input-daterange > ul > li:nth-child(6)")).click();
+        await delay(1000);
+
+        await this.page.waitForSelector('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button');
+        await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).click();
+        await delay(1000);
+
+        await this.page.keyboard.press('Enter');
+        await delay(5000);
+
+        const listaClientes = await this.page.evaluate(() => {
+          const qtdLinhas = document.querySelector('div[id="datatable"] > table > tbody').childElementCount;
+          const lista = [];
+          for (let i = 0; i < qtdLinhas; i++) {
+            try {
+              const cliente = document.querySelectorAll('div[id="datatable"] > table > tbody>tr')[i].querySelector('td:nth-child(2)')
+                .textContent
+                .toUpperCase()
+                .trim()
+                .replace('CLIENTE:', '');
+              lista.push({ nome: cliente, telefone: '', celular: '' });
+            } catch (err) { }
+          }
+
+          return Promise.resolve(lista);
+        })
+
+        return resolve({ status: 'ok', clientes: listaClientes });
+
+      } catch (err) {
+        console.log('FALHA ao obter lista de clientes', err.message);
+        return resolve({ status: 'erro', clientes: null });
+      }
+    })
+  }
+
+
 
   // async sharedWhatsapp() {
   //   return new Promise(async (resolve) => {
