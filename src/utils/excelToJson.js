@@ -31,14 +31,18 @@ export default async function fexcelToJson() {
             G: 'celular',
           }
         });
-        console.log(result);
 
-        writeFileSync('baseTelefones.json', JSON.stringify(result))
+        // criando json com os telefones a partir do arquivo Excel.
+        writeFileSync('baseTelefones.json', JSON.stringify(result));
+
+        return res({ status: 'ok' });
 
       } else if (excelFiles.length > 1) {
-        console.log('Mais de um arquivo Excel encontrado. Por favor, verifique a pasta.');
+        return res({ status: "erro", message: `Mais de um arquivo Excel encontrado na pasta 'baseTelefones', por favor deixar apenas um arquivo, e após reiniciar o robô` });
+
       } else {
-        console.log('Nenhum arquivo Excel encontrado na pasta.');
+        return res({ status: "erro", message: `Nenhum arquivo Excel encontrado na pasta 'baseTelefones'.` });
+
       }
     });
   })

@@ -42,7 +42,12 @@ import fexcelToJson from './src/utils/excelToJson.js';
 
   if (statusLoginBling) {
     const pegaListaClientes = await blingScraper.buscaListaClientes();
-    await fexcelToJson()
+    const baseTelefonesParaJson = await fexcelToJson();
+    if (baseTelefonesParaJson.status === 'ok') {
+      const listaTelefonesAssociados = await blingScraper.associaTelefones(pegaListaClientes.clientes);
+    } else {
+      console.log(baseTelefonesParaJson.message);
+    }
   }
 
 })();

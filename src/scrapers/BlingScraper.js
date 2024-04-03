@@ -2,6 +2,8 @@ import delay from '../utils/delay.js';
 import { config } from 'dotenv';
 import { existFile, loadCookie, saveCookie } from '../utils/session.js';
 import { resolve } from 'path';
+import baseTelefones from '../../baseTelefones.json' assert {type: 'json'};
+
 config();
 
 class Scraper {
@@ -104,7 +106,10 @@ class Scraper {
                 .textContent
                 .toUpperCase()
                 .trim()
-                .replace('CLIENTE:', '');
+                .replace('CLIENTE:', '')
+                .trim()
+                .replace(/\s+/g, ' ')
+                .replace(/\(\s*([^)]+?)\s*\)/g, '($1)');
               lista.push({ nome: cliente, telefone: '', celular: '' });
             } catch (err) { }
           }
@@ -119,6 +124,33 @@ class Scraper {
         return resolve({ status: 'erro', clientes: null });
       }
     })
+  }
+
+  async associaTelefones(listaClientes) {
+    return new Promise(async (resolve) => {
+      try {
+        for (let i = 0; i < listaClientes.length; i++) {
+          const resultado = baseTelefones.Franqueados.filter(
+            item => item.nome
+              .trim()
+              .replace(/\s+/g, ' ')
+              .replace(/\(\s*([^)]+?)\s*\)/g, '($1)') === listaClientes[i]['nome']);
+          if (resultado.length > 0) {
+            listaClientes[i]['telefone'] = resultado[0]['telefone'];
+            listaClientes[i]['celular'] = resultado[0]['celular'];
+          }
+        }
+
+        for (let i = 0; i < listaClientes.length; i++) {
+
+          if (listaClientes[i]['telefone'] == '') {
+            console.log(listaClientes[i]);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
   }
 
 
