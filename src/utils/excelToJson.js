@@ -1,4 +1,4 @@
-import { readdir, writeFileSync } from 'fs'
+import { readdir, writeFileSync } from 'fs';
 import { resolve, extname } from 'path';
 import excelToJson from 'convert-excel-to-json';
 

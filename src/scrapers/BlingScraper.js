@@ -82,7 +82,7 @@ class Scraper {
     return new Promise(async (resolve) => {
       try {
         console.log('BUSCANDO lista de clientes');
-        await this.page.waitForSelector('button[id="dtButton"]');
+        await this.page.waitForSelector('button[id="dtButton"]', { timeout: 60000 });
         await (await this.page.$('button[id="dtButton"]')).click();
         await delay(1000);
 
@@ -129,6 +129,8 @@ class Scraper {
   async associaTelefones(listaClientes) {
     return new Promise(async (resolve) => {
       try {
+        console.log('ASSOCIANDO lista de cliente com os telefones da base Excel');
+        await this.page.waitForNetworkIdle()
         for (let i = 0; i < listaClientes.length; i++) {
           const resultado = baseTelefones.Franqueados.filter(
             item => item.nome
@@ -141,14 +143,47 @@ class Scraper {
           }
         }
 
-        for (let i = 0; i < listaClientes.length; i++) {
-
-          if (listaClientes[i]['telefone'] == '') {
-            console.log(listaClientes[i]);
-          }
-        }
+        return resolve({ status: 'ok', clientes: listaClientes });
       } catch (err) {
-        console.error(err);
+        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' });
+      }
+    });
+  }
+
+  async enviaLinkWhatsapp(listaClientes, browser) {
+    return new Promise(async (resolve) => {
+      try {
+        console.log('PERCORRENDO tabela para enviar os links...');
+        let index = 0
+        for await (const client of listaClientes) {
+          console.log(client);
+          const { nome, telefone, celular } = client;
+
+          console.log(nome, telefone, celular);
+          // acionando o botão de enviar para o whatsapp
+          await this.page.evaluate((index) => {
+            document.querySelectorAll('div[id="datatable"] > table > tbody>tr')[index].querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp').click()
+          }, [index]);
+          await delay(500);
+
+          // Esperando modal abrir e colocando o numero de telefone
+          await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
+          await this.page.evaluate((celular) => {
+            document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
+            document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
+            return Promise.resolve();
+          }, celular);
+          await delay(500);
+
+          await this.page.evaluate(() => Promise.resolve(document.querySelector('div[role="dialog"] > div:nth-child(3) > div > button').click()));
+
+          break
+          index++
+        }
+
+        return resolve({ status: 'ok', clientes: listaClientes });
+      } catch (err) {
+        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' });
       }
     });
   }
