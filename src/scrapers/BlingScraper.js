@@ -83,15 +83,15 @@ class Scraper {
       try {
         console.log('BUSCANDO lista de clientes');
         await this.page.waitForSelector('button[id="dtButton"]', { timeout: 60000 });
-        await (await this.page.$('button[id="dtButton"]')).click();
+        await (await this.page.$('button[id="dtButton"]')).evaluate((e) => e.click());
         await delay(1000);
 
         await this.page.waitForSelector("#dialog-picker > div.input-daterange > ul > li:nth-child(6)");
-        await (await this.page.$("#dialog-picker > div.input-daterange > ul > li:nth-child(6)")).click();
+        await (await this.page.$("#dialog-picker > div.input-daterange > ul > li:nth-child(6)")).evaluate((e) => e.click());
         await delay(1000);
 
         await this.page.waitForSelector('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button');
-        await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).click();
+        await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).evaluate((e) => e.click());
         await delay(1000);
 
         await this.page.keyboard.press('Enter');
@@ -130,7 +130,8 @@ class Scraper {
     return new Promise(async (resolve) => {
       try {
         console.log('ASSOCIANDO lista de cliente com os telefones da base Excel');
-        await this.page.waitForNetworkIdle()
+        await this.page.waitForNetworkIdle();
+        await delay(8000);
         for (let i = 0; i < listaClientes.length; i++) {
           const resultado = baseTelefones.Franqueados.filter(
             item => item.nome
@@ -145,7 +146,7 @@ class Scraper {
 
         return resolve({ status: 'ok', clientes: listaClientes });
       } catch (err) {
-        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' });
+        return resolve({ status: 'erro', message: `FALHA ao associar lista de clientes, ${err.message}}` });
       }
     });
   }
@@ -156,10 +157,11 @@ class Scraper {
         console.log('PERCORRENDO tabela para enviar os links...');
         let index = 0
         for await (const client of listaClientes) {
-          console.log(client);
-          const { nome, telefone, celular } = client;
+          const { nome, /*telefone,*/ celular } = client;
 
-          console.log(nome, telefone, celular);
+          console.log(nome, celular);
+          // Caso não tenha encontrado o número de celular, deixará o da empresa receber o boleto.
+          if (celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO
           // acionando o botão de enviar para o whatsapp
           await this.page.evaluate((index) => {
             document.querySelectorAll('div[id="datatable"] > table > tbody>tr')[index].querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp').click()
@@ -169,6 +171,7 @@ class Scraper {
           // Esperando modal abrir e colocando o numero de telefone
           await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
           await this.page.evaluate((celular) => {
+            celular = "(16) 99243-6784"
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
             return Promise.resolve();
@@ -176,85 +179,27 @@ class Scraper {
           await delay(500);
 
           await this.page.evaluate(() => Promise.resolve(document.querySelector('div[role="dialog"] > div:nth-child(3) > div > button').click()));
+          await delay(5000);
 
-          break
+          const [, , wpp] = await browser.pages();
+          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 60000 });
+          await delay(3000);
+
+          await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
+          await delay(2000);
+
+          await wpp.close();
+          await delay(1500);
+
           index++
         }
 
-        return resolve({ status: 'ok', clientes: listaClientes });
+        return resolve({ status: 'ok', message: 'Boletos enviados com sucesso. Até breve =D' });
       } catch (err) {
         return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' });
       }
     });
   }
-
-
-
-  // async sharedWhatsapp() {
-  //   return new Promise(async (resolve) => {
-  //     try {
-  //       await this.page.bringToFront();
-
-  //       await this.page.waitForSelector("#top-level-buttons-computed > yt-button-view-model > button-view-model > button");
-  //       await this.page.click("#top-level-buttons-computed > yt-button-view-model > button-view-model > button");
-
-  //       await this.page.waitForSelector('button[title="WhatsApp"]');
-  //       await this.page.click('button[title="WhatsApp"]');
-
-  //       await delay(3000);
-
-  //       return resolve({
-  //         sucesso: true,
-  //       })
-  //     } catch (err) {
-  //       console.error(err);
-  //       return resolve({
-  //         sucesso: false,
-  //         erro: err.message
-  //       })
-  //     }
-  //   })
-  // }
-  // async sendMessage(page) {
-  //   return new Promise(async (resolve) => {
-  //     try {
-  //       await page.waitForSelector('a[title="Compartilhe no WhatsApp"]');
-  //       await page.click('a[title="Compartilhe no WhatsApp"]');
-
-  //       await page.waitForSelector('section > div > div > div > div div:nth-child(3) > h4:nth-child(2) > a');
-  //       await page.evaluate(() => {
-  //         document.querySelector('section > div > div > div > div div:nth-child(3) > h4:nth-child(2) > a').click()
-  //         return Promise.resolve()
-  //       })
-
-  //       await page.waitForSelector('div[title="Caixa de texto de pesquisa"]')
-  //       await page.type('div[title="Caixa de texto de pesquisa"]', 'Alex')
-
-  //       await page.waitForSelector('div[role="checkbox"]')
-  //       await page.evaluate(() => {
-  //         document.querySelector('div[role="checkbox"]').click()
-  //         return Promise.resolve()
-  //       })
-
-  //       await page.waitForSelector('div[data-animate-btn="true"] > div')
-  //       await page.evaluate(() => {
-  //         document.querySelector('div[data-animate-btn="true"] > div').click()
-  //         return Promise.resolve()
-  //       })
-
-  //       await page.waitForSelector('div[title="Digite uma mensagem"]');
-  //       await page.keyboard.press('Enter');
-  //       return resolve({
-  //         sucesso: true
-  //       })
-  //     } catch (err) {
-  //       return resolve({
-  //         sucesso: false,
-  //         erro: err.message
-  //       })
-  //     }
-  //   })
-  // }
 }
 
 export default Scraper;

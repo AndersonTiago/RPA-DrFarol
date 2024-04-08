@@ -47,6 +47,10 @@ import fexcelToJson from './src/utils/excelToJson.js';
       const listaTelefonesAssociados = await blingScraper.associaTelefones(pegaListaClientes.clientes);
       if (listaTelefonesAssociados.status === 'ok') {
         const enviaLinkWpp = await blingScraper.enviaLinkWhatsapp(listaTelefonesAssociados.clientes, browser);
+        if (enviaLinkWpp.status == 'ok') {
+          console.log(enviaLinkWpp.message);
+          await browser.close();
+        }
       } else {
         console.log(listaTelefonesAssociados.message);
       }
