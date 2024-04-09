@@ -21,10 +21,8 @@ import fexcelToJson from './src/utils/excelToJson.js';
   await whatsapp.bringToFront();
   await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
 
-  // Restante do seu código aqui
   const blingScraper = new BlingScraper(bling);
 
-  // impondo tentativas de login na plataforma
   let tries = 3;
   let statusLoginBling = false
 

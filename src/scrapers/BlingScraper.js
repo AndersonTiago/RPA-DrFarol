@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { existFile, loadCookie, saveCookie } from '../utils/session.js';
 import { resolve } from 'path';
 import baseTelefones from '../../baseTelefones.json' assert {type: 'json'};
+import { access, readFile, appendFile, unlink } from 'fs/promises';
 
 config();
 
@@ -68,6 +69,7 @@ class Scraper {
           return Promise.resolve();
         })
 
+        await delay(8000);
         console.log('Login Bling efetuado com sucesso!');
         return resolve({ status: 'logado' });
       } catch (err) {
@@ -130,7 +132,6 @@ class Scraper {
     return new Promise(async (resolve) => {
       try {
         console.log('ASSOCIANDO lista de cliente com os telefones da base Excel');
-        await this.page.waitForNetworkIdle();
         await delay(8000);
         for (let i = 0; i < listaClientes.length; i++) {
           const resultado = baseTelefones.Franqueados.filter(
@@ -152,25 +153,47 @@ class Scraper {
   }
 
   async enviaLinkWhatsapp(listaClientes, browser) {
+    const txtFilePath = 'nomes_processados.txt';
+    let lastProcessedName = '';
+
+    // Verifica se o arquivo JSON já existe
+    try {
+      await access(txtFilePath);
+      const txtContent = await readFile(txtFilePath, 'utf8');
+      lastProcessedName = txtContent.trim();
+    } catch (error) {
+      console.log('Arquivo de texto não existe ou não pode ser lido:', error.message);
+    }
+
+    // Retorna uma promessa
     return new Promise(async (resolve) => {
       try {
         console.log('PERCORRENDO tabela para enviar os links...');
-        let index = 0
-        for await (const client of listaClientes) {
-          const { nome, /*telefone,*/ celular } = client;
+        let index = 0;
 
-          console.log(nome, celular);
-          // Caso não tenha encontrado o número de celular, deixará o da empresa receber o boleto.
-          if (celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO
-          // acionando o botão de enviar para o whatsapp
+        for await (const client of listaClientes) {
+          const { nome, celular } = client;
+
+          if (lastProcessedName.includes(nome)) {
+            console.log(`Nome "${nome}" já foi processado, pulando para o próximo.`);
+            continue; // Pula para o próximo cliente
+          }
+
+          // Seu código para enviar a mensagem via WhatsApp
+          if (!celular || celular === '') celular = process.env.CELULAR_CONTATO; // Verifica e atribui o celular
+
+          // Acionando o botão de enviar para o WhatsApp
           await this.page.evaluate((index) => {
-            document.querySelectorAll('div[id="datatable"] > table > tbody>tr')[index].querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp').click()
+            document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
+              .querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp')
+              .click();
           }, [index]);
           await delay(500);
 
           // Esperando modal abrir e colocando o numero de telefone
           await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
           await this.page.evaluate((celular) => {
+            console.log("celular", celular);
             celular = "(16) 99243-6784"
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
@@ -182,7 +205,7 @@ class Scraper {
           await delay(5000);
 
           const [, , wpp] = await browser.pages();
-          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 60000 });
+          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
           await delay(3000);
 
           await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
@@ -191,12 +214,17 @@ class Scraper {
           await wpp.close();
           await delay(1500);
 
-          index++
+          // Registra o nome no arquivo de texto
+          await appendFile(txtFilePath, `${nome}\n`);
+
+          index++; // Incrementa o índice para avançar para o próximo cliente
         }
 
-        return resolve({ status: 'ok', message: 'Boletos enviados com sucesso. Até breve =D' });
+        await unlink(txtFilePath);
+
+        return resolve({ status: 'ok', message: 'Boletos enviados com sucesso. Até breve =D' }); // Retorna uma promessa resolvida
       } catch (err) {
-        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' });
+        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' }); // Retorna uma promessa resolvida com erro
       }
     });
   }
