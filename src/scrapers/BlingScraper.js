@@ -179,6 +179,10 @@ class Scraper {
             continue; // Pula para o próximo cliente
           }
 
+          console.log(`----------`);
+          console.log(`ENVIANDO boleto para ${nome};`);
+          console.log(`----------`);
+
           // Seu código para enviar a mensagem via WhatsApp
           if (!celular || celular === '') celular = process.env.CELULAR_CONTATO; // Verifica e atribui o celular
 
@@ -194,7 +198,7 @@ class Scraper {
           await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
           await this.page.evaluate((celular) => {
             console.log("celular", celular);
-            celular = "(16) 99243-6784"
+            celular = "(16) 99243-6784";
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
             document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
             return Promise.resolve();
@@ -205,11 +209,17 @@ class Scraper {
           await delay(5000);
 
           const [, , wpp] = await browser.pages();
-          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
-          await delay(3000);
+          try {
+            await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
+            await delay(3000);
 
-          await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
-          await delay(2000);
+            await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
+            await delay(2000);
+          } catch (err) {
+            console.log('ATENÇÃO!!!');
+            console.log(`Número de telefone: '${celular}' do cliente: '${nome}' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp.`);
+            await delay(3000);
+          }
 
           await wpp.close();
           await delay(1500);

@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer';
 import { resolve } from 'path';
 import BlingScraper from './src/scrapers/BlingScraper.js';
 import fexcelToJson from './src/utils/excelToJson.js';
+import delay from './src/utils/delay.js';
 
 (async () => {
   // Launch the browser and open a new blank page
@@ -17,10 +18,24 @@ import fexcelToJson from './src/utils/excelToJson.js';
   await browser.newPage()
   const [whatsapp, bling] = await browser.pages();
 
+  console.log('...RPA start...');
+  await delay(3000);
+  console.log('........... AVISO ..............');
+  console.log('Para total funcionamento do RPA, a base de telefones deve estar atualizada');
+  console.log('e com números que contenham whatsapp, caso contrário um alerta será emitido');
+  console.log('informando o número inválido e o cliente.');
+  console.log('Caso aconteça, solicito a troca do número do cliente em questão na base.');
+  console.log('................................');
+  await delay(10000);
+  console.log('Primeramente sincronize seu whatsapp na página que irá aparecer.');
+  await delay(1000)
   await whatsapp.goto('https://web.whatsapp.com/', { waitUntil: 'networkidle2' })
   await whatsapp.bringToFront();
   await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
 
+  await delay(300)
+  console.log('Meus parabéns você concluiu o primeiro passo =D');
+  await delay(300);
   const blingScraper = new BlingScraper(bling);
 
   let tries = 3;
@@ -55,6 +70,9 @@ import fexcelToJson from './src/utils/excelToJson.js';
     } else {
       console.log(baseTelefonesParaJson.message);
     }
+  } else {
+    console.log('Não foi possível efetuar login no BLING =(');
+    await browser.close();
   }
 
 })();
