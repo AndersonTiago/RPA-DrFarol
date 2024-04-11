@@ -33,7 +33,7 @@ import delay from './src/utils/delay.js';
   await whatsapp.bringToFront();
   await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
 
-  await delay(300)
+  await delay(300);
   console.log('Meus parabéns você concluiu o primeiro passo =D');
   await delay(300);
   const blingScraper = new BlingScraper(bling);
