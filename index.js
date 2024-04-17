@@ -9,7 +9,7 @@ import delay from './src/utils/delay.js';
   const browser = await puppeteer.launch({
     headless: false,
     slowMo: 10,
-    devtools: true,
+    devtools: false,
     userDataDir: resolve(process.cwd(), 'temp'),
     defaultViewport: { width: 1366, height: 768 },
     // defaultViewport: { width: 1080, height: 1024 },

@@ -214,6 +214,12 @@ class Scraper {
             await delay(3000);
 
             await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
+            await delay(1000);
+
+            await wpp.type('div[title="Digite uma mensagem"]', `Olá! Segue boleto para pagamento.`)
+            await delay(300);
+
+            await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
             await delay(2000);
           } catch (err) {
             console.log('ATENÇÃO!!!');
