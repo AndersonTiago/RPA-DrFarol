@@ -1,0 +1,654 @@
+ENVIANDO boleto para CASSIANO MOTOPECAS LTDA (PONTE NOVA);
+CELULAR: (31) 8255-5210;
+----------
+--------ATENÇÃO---------
+( CASSIANO MOTOPECAS LTDA (PONTE NOVA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 0
+----------
+ENVIANDO boleto para MICHAEL ALVES NOVAES (PETROLINA);
+CELULAR: (87) 8859-2765;
+----------
+--------ATENÇÃO---------
+( MICHAEL ALVES NOVAES (PETROLINA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 1
+ATENÇÃO!!!
+Número de telefone: '(87) 8859-2765' do cliente: 'MICHAEL ALVES NOVAES (PETROLINA)' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp.
+----------
+ENVIANDO boleto para DPF SERVIÇOS AUTOMOTIVOS (SAO CARLOS);
+CELULAR: (16) 99728-6091;
+----------
+--------ATENÇÃO---------
+( DPF SERVIÇOS AUTOMOTIVOS (SAO CARLOS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 2
+----------
+ENVIANDO boleto para IURY SOUZA DE LIMA (PARAUAPEBAS);
+CELULAR: (94) 99297-8457;
+----------
+--------ATENÇÃO---------
+( IURY SOUZA DE LIMA (PARAUAPEBAS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 3
+----------
+ENVIANDO boleto para LEANDRI CENTRO AUTOMOTIVO LTDA (BATATAIS);
+CELULAR: (16) 99989-0507;
+----------
+--------ATENÇÃO---------
+( LEANDRI CENTRO AUTOMOTIVO LTDA (BATATAIS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 4
+----------
+ENVIANDO boleto para DAKAR-PNEUS, PECAS E SERVICOS LTDA (S.S.P);
+CELULAR: (35) 9190-5603;
+----------
+--------ATENÇÃO---------
+( DAKAR-PNEUS, PECAS E SERVICOS LTDA (S.S.P) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 5
+----------
+ENVIANDO boleto para GILBERTO PEREIRA DE SOUZA (TERESINA);
+CELULAR: (86) 9998-4421;
+----------
+--------ATENÇÃO---------
+( GILBERTO PEREIRA DE SOUZA (TERESINA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 6
+----------
+ENVIANDO boleto para BIMBATO & CALDEIRA VOTUPORANGA LTDA (VOTUPORANGA);
+CELULAR: undefined;
+----------
+--------ATENÇÃO---------
+( BIMBATO & CALDEIRA VOTUPORANGA LTDA (VOTUPORANGA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 7
+----------
+ENVIANDO boleto para VINICIUS CASSEMIRO DE MELLO (PRESIDENTE PRUDENTE);
+CELULAR: (18) 98114-7318;
+----------
+--------ATENÇÃO---------
+( VINICIUS CASSEMIRO DE MELLO (PRESIDENTE PRUDENTE) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 8
+----------
+ENVIANDO boleto para LR DISTRIBUIDORA DE ACESSORIOS LTDA (CASCAVEL);
+CELULAR: (45) 9808-7365;
+----------
+--------ATENÇÃO---------
+( LR DISTRIBUIDORA DE ACESSORIOS LTDA (CASCAVEL) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 9
+----------
+ENVIANDO boleto para KLAINER COMERCIAL EIRELI (MAGE);
+CELULAR: (21) 99557-8110;
+----------
+--------ATENÇÃO---------
+( KLAINER COMERCIAL EIRELI (MAGE) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 10
+----------
+ENVIANDO boleto para JA SERVICOS AUTOMOTIVOS (CAXIAS DO SUL);
+CELULAR: (54) 99178-1411;
+----------
+--------ATENÇÃO---------
+( JA SERVICOS AUTOMOTIVOS (CAXIAS DO SUL) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 11
+----------
+ENVIANDO boleto para MECÂNICA & AUTO ELÉTRICA POMMERENINH E VANZ LTDA (VIDEIRA);
+CELULAR: (49) 8819-6070;
+----------
+--------ATENÇÃO---------
+( MECÂNICA & AUTO ELÉTRICA POMMERENINH E VANZ LTDA (VIDEIRA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 12
+----------
+ENVIANDO boleto para DAKAR-PNEUS, PECAS E SERVICOS LTDA (CASSIA);
+CELULAR: (11) 99737-5265;
+----------
+--------ATENÇÃO---------
+( DAKAR-PNEUS, PECAS E SERVICOS LTDA (CASSIA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 13
+----------
+ENVIANDO boleto para JM TEIXEIRA COM. DE PECAS E SERV ELETR. EIRELI (ORLANDIA);
+CELULAR: (16) 99107-9091;
+----------
+--------ATENÇÃO---------
+( JM TEIXEIRA COM. DE PECAS E SERV ELETR. EIRELI (ORLANDIA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 14
+----------
+ENVIANDO boleto para PATRICIA ROSSETO EXPERT RADIO SINAL (PIRACICABA);
+CELULAR: (19) 99772-3403;
+----------
+--------ATENÇÃO---------
+( PATRICIA ROSSETO EXPERT RADIO SINAL (PIRACICABA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 15
+----------
+ENVIANDO boleto para WIVIAN DIAS DURAN (SAO JOSE DOS CAMPOS);
+CELULAR: (12) 99115-4948;
+----------
+--------ATENÇÃO---------
+( WIVIAN DIAS DURAN (SAO JOSE DOS CAMPOS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 16
+----------
+ENVIANDO boleto para DR FAROL BRAGANÇA PAULISTA (BRAGANÇA PAULISTA);
+CELULAR: (11) 94304-4427;
+----------
+--------ATENÇÃO---------
+( DR FAROL BRAGANÇA PAULISTA (BRAGANÇA PAULISTA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 17
+----------
+ENVIANDO boleto para LUCAS MOISES DA SILVA;
+CELULAR: (16) 99261-8717;
+----------
+--------ATENÇÃO---------
+( LUCAS MOISES DA SILVA ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 18
+----------
+ENVIANDO boleto para VANDEIR RITA DE ALFENA (ARAXA);
+CELULAR: (34) 98857-7627;
+----------
+--------ATENÇÃO---------
+( VANDEIR RITA DE ALFENA (ARAXA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 19
+----------
+ENVIANDO boleto para AYOM SERVICOS PECAS E ACESSORIOS LTDA ( RIBEIRAO PRETO DAKAR;
+CELULAR: (11) 9737-5265;
+----------
+--------ATENÇÃO---------
+( AYOM SERVICOS PECAS E ACESSORIOS LTDA ( RIBEIRAO PRETO DAKAR ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 20
+----------
+ENVIANDO boleto para ALEXANDRE DE MORAIS MARQUES (LIMEIRA);
+CELULAR: (16) 99188-9506;
+----------
+--------ATENÇÃO---------
+( ALEXANDRE DE MORAIS MARQUES (LIMEIRA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 21
+----------
+ENVIANDO boleto para PEREIRA DA SILVA & COLE LTDA (IGARAPAVA);
+CELULAR: (16) 99201-5561;
+----------
+--------ATENÇÃO---------
+( PEREIRA DA SILVA & COLE LTDA (IGARAPAVA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 22
+----------
+ENVIANDO boleto para AGRICAR SERVICOS AR CONDICIONADO EIRELI (REDENÇÃO);
+CELULAR: (94) 99263-1996;
+----------
+--------ATENÇÃO---------
+( AGRICAR SERVICOS AR CONDICIONADO EIRELI (REDENÇÃO) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 23
+----------
+ENVIANDO boleto para SÃO JOAQUIM DA BARRA AUTOMOTIVE LTDA (S J BARRA);
+CELULAR: (11) 99737-5265;
+----------
+--------ATENÇÃO---------
+( SÃO JOAQUIM DA BARRA AUTOMOTIVE LTDA (S J BARRA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 24
+----------
+ENVIANDO boleto para PAULO ROBERTO PAVOLIN (ITAPOLIS);
+CELULAR: (16) 99212-4500;
+----------
+--------ATENÇÃO---------
+( PAULO ROBERTO PAVOLIN (ITAPOLIS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 25
+----------
+ENVIANDO boleto para SANTANA & SANTANA AUTO PECAS E SERV LTDA (SJ DOS PINHAIS);
+CELULAR: (41) 99955-9522;
+----------
+--------ATENÇÃO---------
+( SANTANA & SANTANA AUTO PECAS E SERV LTDA (SJ DOS PINHAIS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 26
+----------
+ENVIANDO boleto para EDNA DA SILVA DEUSIMAR (GUARULHOS);
+CELULAR: (11) 96445-8882;
+----------
+--------ATENÇÃO---------
+( EDNA DA SILVA DEUSIMAR (GUARULHOS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 27
+----------
+ENVIANDO boleto para GOUVEIA AUTO CENTER LTDA (XINGUARA);
+CELULAR: (94) 9152-5515;
+----------
+--------ATENÇÃO---------
+( GOUVEIA AUTO CENTER LTDA (XINGUARA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 28
+----------
+ENVIANDO boleto para FAROL VARZEA PAULISTA COMERCIO DE ACESSORIOS E PECAS LTDA (VARZEA);
+CELULAR: (11) 9961-2825;
+----------
+--------ATENÇÃO---------
+( FAROL VARZEA PAULISTA COMERCIO DE ACESSORIOS E PECAS LTDA (VARZEA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 29
+----------
+ENVIANDO boleto para T.F. ZENATTI (BAURU);
+CELULAR: (14) 98812-3432;
+----------
+--------ATENÇÃO---------
+( T.F. ZENATTI (BAURU) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 30
+----------
+ENVIANDO boleto para FAROL COMERCIO DE ACESSORIOS E PECAS EIRELI (JUNDIAI);
+CELULAR: (11) 99617-2825;
+----------
+--------ATENÇÃO---------
+( FAROL COMERCIO DE ACESSORIOS E PECAS EIRELI (JUNDIAI) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 31
+----------
+ENVIANDO boleto para GARAGEM GPN OFICINA MECANICA LTDA (CAMPINAS);
+CELULAR: (19) 99133-1918;
+----------
+--------ATENÇÃO---------
+( GARAGEM GPN OFICINA MECANICA LTDA (CAMPINAS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 32
+----------
+ENVIANDO boleto para NEUCIMAR DE ASSIS DE SOUSA JUNIOR (MARABA);
+CELULAR: (94) 99265-3949;
+----------
+--------ATENÇÃO---------
+( NEUCIMAR DE ASSIS DE SOUSA JUNIOR (MARABA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 33
+----------
+ENVIANDO boleto para DEOLINDO INACIO (MACATUBA);
+CELULAR: (14) 99679-8140;
+----------
+--------ATENÇÃO---------
+( DEOLINDO INACIO (MACATUBA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 34
+----------
+ENVIANDO boleto para LUCIANA ALVES DA CUNHA (CARAGUATATUBA);
+CELULAR: (14) 99777-7002;
+----------
+--------ATENÇÃO---------
+( LUCIANA ALVES DA CUNHA (CARAGUATATUBA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 35
+----------
+ENVIANDO boleto para WESLEY ALVES CAVAGLIERI DE MOURA (FOZ DO IGUAÇU);
+CELULAR: (45) 99985-8692;
+----------
+--------ATENÇÃO---------
+( WESLEY ALVES CAVAGLIERI DE MOURA (FOZ DO IGUAÇU) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 36
+----------
+ENVIANDO boleto para ROSIMEIRE ARAUJO (BIRIGUI);
+CELULAR: (18) 99750-0972;
+----------
+--------ATENÇÃO---------
+( ROSIMEIRE ARAUJO (BIRIGUI) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 37
+----------
+ENVIANDO boleto para SPACAR ESTETICA AUTOMOTIVA LTDA (CATANDUVA);
+CELULAR: (17) 99776-4722;
+----------
+--------ATENÇÃO---------
+( SPACAR ESTETICA AUTOMOTIVA LTDA (CATANDUVA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 38
+----------
+ENVIANDO boleto para FABIANA PERES TONON (ITU);
+CELULAR: (11) 97327-0303;
+----------
+--------ATENÇÃO---------
+( FABIANA PERES TONON (ITU) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 39
+----------
+ENVIANDO boleto para ROBSON MELCHIADES NETO (PEDERNEIRAS);
+CELULAR: (14) 99694-8340;
+----------
+--------ATENÇÃO---------
+( ROBSON MELCHIADES NETO (PEDERNEIRAS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 40
+----------
+ENVIANDO boleto para JML COMERCIO DE TINTA LTDA (BRASILIA);
+CELULAR: (34) 8811-0433;
+----------
+--------ATENÇÃO---------
+( JML COMERCIO DE TINTA LTDA (BRASILIA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 41
+----------
+ENVIANDO boleto para RAONI THOMAZ DE AQUINO PEREIRA (MOTUCA);
+CELULAR: (16) 99786-4768;
+----------
+--------ATENÇÃO---------
+( RAONI THOMAZ DE AQUINO PEREIRA (MOTUCA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 42
+----------
+ENVIANDO boleto para WIVA COMERCIO DE PEÇAS E SERVIÇOS AUTOMOTIVOS LTDA (DIVINOPOLIS);
+CELULAR: (16) 99158-2524;
+----------
+--------ATENÇÃO---------
+( WIVA COMERCIO DE PEÇAS E SERVIÇOS AUTOMOTIVOS LTDA (DIVINOPOLIS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 43
+----------
+ENVIANDO boleto para MARCIO JEROSCH PINTO OLINGER (CURITIBA 2);
+CELULAR: (41) 99513-0022;
+----------
+--------ATENÇÃO---------
+( MARCIO JEROSCH PINTO OLINGER (CURITIBA 2) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 44
+----------
+ENVIANDO boleto para VICTOR ANDRE FERREIRA (PENAPOLIS);
+CELULAR: (18) 98800-1190;
+----------
+--------ATENÇÃO---------
+( VICTOR ANDRE FERREIRA (PENAPOLIS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 45
+----------
+ENVIANDO boleto para RTK - REFRIGERACAO AUTOMOTIVA LTDA (PALMAS);
+CELULAR: (63) 99204-6361;
+----------
+--------ATENÇÃO---------
+( RTK - REFRIGERACAO AUTOMOTIVA LTDA (PALMAS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 46
+----------
+ENVIANDO boleto para L. F. BORGES COMERCIO E MANUTENCAO DE FAROIS LTDA (UBERABA);
+CELULAR: (16) 99115-1174;
+----------
+--------ATENÇÃO---------
+( L. F. BORGES COMERCIO E MANUTENCAO DE FAROIS LTDA (UBERABA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 47
+----------
+ENVIANDO boleto para AMERICAN MARTELINHO E REPAROS AUTOMOTIVOS LTDA (SÃO BERNARDO DO CAMPO);
+CELULAR: (11) 94159-5577;
+----------
+--------ATENÇÃO---------
+( AMERICAN MARTELINHO E REPAROS AUTOMOTIVOS LTDA (SÃO BERNARDO DO CAMPO) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 48
+----------
+ENVIANDO boleto para PASSOS AUTOMOTIVE LTDA (PASSOS);
+CELULAR: (16) 99261-8717;
+----------
+--------ATENÇÃO---------
+passou 49
+----------
+ENVIANDO boleto para DISTRITAL SERVICOS E COMERCIO DE PNEUS E ACESSORIOS LTDA (FRANCA);
+CELULAR: (16) 99155-3762;
+----------
+--------ATENÇÃO---------
+( DISTRITAL SERVICOS E COMERCIO DE PNEUS E ACESSORIOS LTDA (FRANCA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 50
+----------
+ENVIANDO boleto para LEONARDO ROCHINSKI COSTA;
+CELULAR: (45) 99808-7365;
+----------
+--------ATENÇÃO---------
+( LEONARDO ROCHINSKI COSTA ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 51
+----------
+ENVIANDO boleto para LEONARDO ROCHINSKI COSTA;
+CELULAR: (45) 99808-7365;
+----------
+--------ATENÇÃO---------
+( LEONARDO ROCHINSKI COSTA ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 52
+----------
+ENVIANDO boleto para POLO AUTO CENTER LTDA (FRANCA 02);
+CELULAR: (16) 98133-9929;
+----------
+--------ATENÇÃO---------
+( POLO AUTO CENTER LTDA (FRANCA 02) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 53
+----------
+ENVIANDO boleto para LUCAS DA SILVA PEREIRA (ITUVERAVA);
+CELULAR: (16) 99355-9009;
+----------
+--------ATENÇÃO---------
+( LUCAS DA SILVA PEREIRA (ITUVERAVA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 54
+----------
+ENVIANDO boleto para A.G. DE SOUZA ESTETICA AUTOMOTIVA (OURINHOS);
+CELULAR: (14) 98176-6052;
+----------
+--------ATENÇÃO---------
+( A.G. DE SOUZA ESTETICA AUTOMOTIVA (OURINHOS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 55
+----------
+ENVIANDO boleto para SOLUCAO SERVICOS E LOCACOES LTDA (FEIRA DE SANTANA);
+CELULAR: (75) 8103-3253;
+----------
+--------ATENÇÃO---------
+( SOLUCAO SERVICOS E LOCACOES LTDA (FEIRA DE SANTANA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 56
+----------
+ENVIANDO boleto para JOSE ROBERTO DE SOUZA (POUSO ALEGRE);
+CELULAR: (35) 99984-8822;
+----------
+--------ATENÇÃO---------
+( JOSE ROBERTO DE SOUZA (POUSO ALEGRE) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 57
+----------
+ENVIANDO boleto para ENZO SETO (MORUMBI) INATIVO;
+CELULAR: (11) 98489-2330;
+----------
+--------ATENÇÃO---------
+( ENZO SETO (MORUMBI) INATIVO ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 58
+----------
+ENVIANDO boleto para TALITA DIAS DA SILVA (SAO SIMAO) INATIVO;
+CELULAR: (64) 99652-8926;
+----------
+--------ATENÇÃO---------
+( TALITA DIAS DA SILVA (SAO SIMAO) INATIVO ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 59
+----------
+ENVIANDO boleto para D E BEZERRA - PINTURAS (CAMPINA LAGOA);
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( D E BEZERRA - PINTURAS (CAMPINA LAGOA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 60
+----------
+ENVIANDO boleto para WESLEY ALVES CAVAGLIERI DE MOURA (FOZ DO IGUAÇU);
+CELULAR: (45) 99985-8692;
+----------
+--------ATENÇÃO---------
+( WESLEY ALVES CAVAGLIERI DE MOURA (FOZ DO IGUAÇU) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 61
+----------
+ENVIANDO boleto para SHOP PRADO AUTOMOTIVO COMERCIO ELETRONICO LTDA (PAULINIA);
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( SHOP PRADO AUTOMOTIVO COMERCIO ELETRONICO LTDA (PAULINIA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 62
+----------
+ENVIANDO boleto para MAYARA SILVA ALVES LTDA (GUAXUPE);
+CELULAR: (35) 98891-5164;
+----------
+--------ATENÇÃO---------
+( MAYARA SILVA ALVES LTDA (GUAXUPE) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 63
+----------
+ENVIANDO boleto para DOUGLAS PEREIRA DA CONCEICAO (DISTRITO FEDERAL);
+CELULAR: (61)99650-9344;
+----------
+--------ATENÇÃO---------
+( DOUGLAS PEREIRA DA CONCEICAO (DISTRITO FEDERAL) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 64
+----------
+ENVIANDO boleto para FABIANO TONON (INDAIATUBA);
+CELULAR: (11) 9947-6048;
+----------
+--------ATENÇÃO---------
+( FABIANO TONON (INDAIATUBA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 65
+----------
+ENVIANDO boleto para LUIZ FERNANDO DA SILVA BARBOSA (LENCOIS PAULISTA);
+CELULAR: (14) 99726-6086;
+----------
+--------ATENÇÃO---------
+( LUIZ FERNANDO DA SILVA BARBOSA (LENCOIS PAULISTA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 66
+----------
+ENVIANDO boleto para DONALDO SANTO PASSAFARO JUNIOR (TAQUARITINGA);
+CELULAR: (16) 99708-0501;
+----------
+--------ATENÇÃO---------
+( DONALDO SANTO PASSAFARO JUNIOR (TAQUARITINGA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 67
+----------
+ENVIANDO boleto para FAROL ALVES (BENTO RIBEIRO);
+CELULAR: (21)97950-3768;
+----------
+--------ATENÇÃO---------
+( FAROL ALVES (BENTO RIBEIRO) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 68
+----------
+ENVIANDO boleto para ANDRE NEGRELLO (CURITIBA);
+CELULAR: (41)99948-3720;
+----------
+--------ATENÇÃO---------
+( ANDRE NEGRELLO (CURITIBA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 69
+----------
+ENVIANDO boleto para LUXU'S MOTORS STUDIO AUTOMOTIVO LTDA (UBERLANDIA);
+CELULAR: (34) 99946-3855;
+----------
+--------ATENÇÃO---------
+( LUXU'S MOTORS STUDIO AUTOMOTIVO LTDA (UBERLANDIA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 70
+----------
+ENVIANDO boleto para BARBARA BEATRIZ DA COSTA CARVALHO (BOM RETIRO DO SUL);
+CELULAR: (51) 98053-6934;
+----------
+--------ATENÇÃO---------
+( BARBARA BEATRIZ DA COSTA CARVALHO (BOM RETIRO DO SUL) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 71
+----------
+ENVIANDO boleto para J.J. ESTETICA AUTOMOTIVA (CACERES);
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( J.J. ESTETICA AUTOMOTIVA (CACERES) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 72
+----------
+ENVIANDO boleto para MAC HUDSON LIMA DA SILVA (RESENDE/RJ) MOBI;
+CELULAR: (24) 99949-4199;
+----------
+--------ATENÇÃO---------
+( MAC HUDSON LIMA DA SILVA (RESENDE/RJ) MOBI ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 73
+----------
+ENVIANDO boleto para DAVID CARLOS DE CUBAS (VARGINHA) COOPER;
+CELULAR: (16) 99462-8851;
+----------
+--------ATENÇÃO---------
+( DAVID CARLOS DE CUBAS (VARGINHA) COOPER ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 74
+----------
+ENVIANDO boleto para ASASIAT EMPREENDIMENTOS IMOBILIARIOS (TOLEDO);
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( ASASIAT EMPREENDIMENTOS IMOBILIARIOS (TOLEDO) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 75
+----------
+ENVIANDO boleto para DR FAROL INTERLAGOS LTDA (INTERLAGOS);
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( DR FAROL INTERLAGOS LTDA (INTERLAGOS) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 76
+----------
+ENVIANDO boleto para MAC SERVIÇOS MEC. LANTERNAGEM LTDA (BRASILIA 2) COMPASS;
+CELULAR: ;
+----------
+--------ATENÇÃO---------
+( MAC SERVIÇOS MEC. LANTERNAGEM LTDA (BRASILIA 2) COMPASS ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 77
+----------
+ENVIANDO boleto para VANDEIR RITA DE ALFENA (ARAXA);
+CELULAR: (34) 98857-7627;
+----------
+--------ATENÇÃO---------
+( VANDEIR RITA DE ALFENA (ARAXA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 78
+----------
+ENVIANDO boleto para COMERCIAL RADAVELLI LTDA (MATAO);
+CELULAR: (16) 99732-3639;
+----------
+--------ATENÇÃO---------
+( COMERCIAL RADAVELLI LTDA (MATAO) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 79
+----------
+ENVIANDO boleto para GT AUTO CENTER MATAO LTDA (ARARAQUARA);
+CELULAR: (16) 99192-2042;
+----------
+--------ATENÇÃO---------
+( GT AUTO CENTER MATAO LTDA (ARARAQUARA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------
+passou 80
+----------
+ENVIANDO boleto para GT AUTO CENTER MATAO LTDA (ARARAQUARA);
+CELULAR: (16) 99192-2042;
+----------
+--------ATENÇÃO---------
+( GT AUTO CENTER MATAO LTDA (ARARAQUARA) ) NÃO CADASTRADO NA PLANILHA,
+------------------------

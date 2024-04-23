@@ -19,16 +19,16 @@ import delay from './src/utils/delay.js';
   const [whatsapp, bling] = await browser.pages();
 
   console.log('...RPA start...');
-  await delay(3000);
+  // await delay(3000);
   console.log('........... AVISO ..............');
   console.log('Para total funcionamento do RPA, a base de telefones deve estar atualizada');
   console.log('e com números que contenham whatsapp, caso contrário um alerta será emitido');
   console.log('informando o número inválido e o cliente.');
   console.log('Caso aconteça, solicito a troca do número do cliente em questão na base.');
   console.log('................................');
-  await delay(10000);
+  // await delay(10000);
   console.log('Primeramente sincronize seu whatsapp na página que irá aparecer.');
-  await delay(1000)
+  // await delay(1000)
   await whatsapp.goto('https://web.whatsapp.com/', { waitUntil: 'networkidle2' })
   await whatsapp.bringToFront();
   await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });

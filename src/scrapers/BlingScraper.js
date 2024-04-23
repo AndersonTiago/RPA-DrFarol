@@ -90,13 +90,24 @@ class Scraper {
 
         await this.page.waitForSelector("#dialog-picker > div.input-daterange > ul > li:nth-child(6)");
         await (await this.page.$("#dialog-picker > div.input-daterange > ul > li:nth-child(6)")).evaluate((e) => e.click());
-        await delay(1000);
+        await delay(500);
 
         await this.page.waitForSelector('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button');
         await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).evaluate((e) => e.click());
-        await delay(1000);
+        await delay(500);
 
-        await this.page.keyboard.press('Enter');
+        const numeroMes = Number(new Date().getMonth()) + 2 // próximo mês        
+        await this.page.evaluate((numeroMes) => {
+          document.querySelector(`#dialog-picker > div.input-daterange > div:nth-child(1) > div > div.datepicker-months > table > tbody > tr > td > span:nth-child(${numeroMes})`).click()
+          return Promise.resolve();
+        }, numeroMes);
+        await delay(2000);
+
+        // filtrando apenas BOLETOS
+        await this.page.waitForSelector(`select[id="idFormaPsq"]`);
+        await this.page.select(`select[id="idFormaPsq"]`, '2702517');
+        await delay(300);
+        await (await this.page.$(`#filter-button-area > button`)).evaluate((e) => e.click());
         await delay(5000);
 
         const listaClientes = await this.page.evaluate(() => {
@@ -147,6 +158,7 @@ class Scraper {
 
         return resolve({ status: 'ok', clientes: listaClientes });
       } catch (err) {
+        console.log(err);
         return resolve({ status: 'erro', message: `FALHA ao associar lista de clientes, ${err.message}}` });
       }
     });
@@ -172,27 +184,50 @@ class Scraper {
         let index = 0;
 
         for await (const client of listaClientes) {
-          const { nome, celular } = client;
+          let { nome, celular } = client;
 
           if (lastProcessedName.includes(nome)) {
             console.log(`Nome "${nome}" já foi processado, pulando para o próximo.`);
+            index++;
             continue; // Pula para o próximo cliente
           }
 
           console.log(`----------`);
           console.log(`ENVIANDO boleto para ${nome};`);
+          console.log(`CELULAR: ${celular};`);
           console.log(`----------`);
 
+          if (!listaClientes.includes(nome)) {
+            console.log(`--------ATENÇÃO--------- `);
+            console.log(`( ${nome} ) NÃO CADASTRADO NA PLANILHA,`);
+            console.log(`------------------------ `);
+            // nome = 'DR FAROL CENTRO DE DISTRIBUIÇÃO LTDA';
+            // celular = process.env.CELULAR_CONTATO;
+            // index++
+            // continue;
+          }
           // Seu código para enviar a mensagem via WhatsApp
-          if (!celular || celular === '') celular = process.env.CELULAR_CONTATO; // Verifica e atribui o celular
+          if (!celular || celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO; // Verifica e atribui o celular
+          console.log('passou', index);
+          // Emitindo boleto
 
+          await this.page.evaluate((index) => {
+            document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
+              .querySelector('td:nth-child(10) > div > ul a > span.fas.fa-barcode')
+              .click();
+          }, [index]);
+          await delay(3000);
+          const [, , paginaBoleto] = await browser.pages();
+          await delay(3000)
+          await paginaBoleto.close();
+          await delay(1500);
           // Acionando o botão de enviar para o WhatsApp
           await this.page.evaluate((index) => {
             document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
               .querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp')
               .click();
           }, [index]);
-          await delay(500);
+          await delay(5000);
 
           // Esperando modal abrir e colocando o numero de telefone
           await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
@@ -209,6 +244,7 @@ class Scraper {
           await delay(5000);
 
           const [, , wpp] = await browser.pages();
+
           try {
             await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
             await delay(3000);
@@ -216,7 +252,7 @@ class Scraper {
             await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
             await delay(1000);
 
-            await wpp.type('div[title="Digite uma mensagem"]', `Olá! Segue boleto para pagamento.`)
+            await wpp.type('div[title="Digite uma mensagem"]', `${nome}, estamos entrando em contato para lembrá-lo(a) sobre o vencimento do seu boleto. Segue o link do seu boleto.  Sua pontualidade é fundamental para nós.`)
             await delay(300);
 
             await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
