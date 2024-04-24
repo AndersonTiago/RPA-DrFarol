@@ -121,9 +121,7 @@ class Scraper {
                 .trim()
                 .replace('CLIENTE:', '')
                 .trim()
-                .replace(/\s+/g, ' ')
-                .replace(/\(\s*([^)]+?)\s*\)/g, '($1)');
-              lista.push({ nome: cliente, telefone: '', celular: '' });
+              lista.push({ nome: cliente, celular: '' });
             } catch (err) { }
           }
 
@@ -146,12 +144,8 @@ class Scraper {
         await delay(8000);
         for (let i = 0; i < listaClientes.length; i++) {
           const resultado = baseTelefones.Franqueados.filter(
-            item => item.nome
-              .trim()
-              .replace(/\s+/g, ' ')
-              .replace(/\(\s*([^)]+?)\s*\)/g, '($1)') === listaClientes[i]['nome']);
+            item => item.nome.trim() === listaClientes[i]['nome']);
           if (resultado.length > 0) {
-            listaClientes[i]['telefone'] = resultado[0]['telefone'];
             listaClientes[i]['celular'] = resultado[0]['celular'];
           }
         }
@@ -183,6 +177,8 @@ class Scraper {
         console.log('PERCORRENDO tabela para enviar os links...');
         let index = 0;
 
+        const nomesClientes = listaClientes.map(cliente => cliente.nome);
+
         for await (const client of listaClientes) {
           let { nome, celular } = client;
 
@@ -197,12 +193,11 @@ class Scraper {
           console.log(`CELULAR: ${celular};`);
           console.log(`----------`);
 
-          if (!listaClientes.includes(nome)) {
+          if (!nomesClientes.includes(nome)) {
             console.log(`--------ATENÇÃO--------- `);
             console.log(`( ${nome} ) NÃO CADASTRADO NA PLANILHA,`);
             console.log(`------------------------ `);
-            // nome = 'DR FAROL CENTRO DE DISTRIBUIÇÃO LTDA';
-            // celular = process.env.CELULAR_CONTATO;
+            celular = process.env.CELULAR_CONTATO;
             // index++
             // continue;
           }

@@ -22,13 +22,8 @@ export default async function fexcelToJson() {
         const result = excelToJson({
           sourceFile: resolve(process.cwd(), 'src', 'baseTelefones', arquivoExcel),
           columnToKey: {
-            A: 'id',
-            B: 'nome',
-            C: 'codigo',
-            D: 'situacao',
-            E: 'numeroDocumento',
-            F: 'telefone',
-            G: 'celular',
+            A: 'nome',
+            B: 'celular',
           }
         });
 
