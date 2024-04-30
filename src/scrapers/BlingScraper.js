@@ -1,11 +1,27 @@
 import delay from '../utils/delay.js';
 import { config } from 'dotenv';
 import { existFile, loadCookie, saveCookie } from '../utils/session.js';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import baseTelefones from '../../baseTelefones.json' assert {type: 'json'};
-import { access, readFile, appendFile, unlink } from 'fs/promises';
+import { access, readFile, appendFile, readdir, rename, stat, unlink } from 'fs/promises';
 
 config();
+async function getLatestFile(directory) {
+  try {
+    // Listar arquivos na pasta
+    const files = await readdir(directory);
+    // Mapear caminhos completos dos arquivos
+    const fileStats = await Promise.all(files.map(file => stat(join(directory, file))));
+    // Ordenar arquivos por data de modificação (do mais recente para o mais antigo)
+    const sortedFiles = files.sort((a, b) => fileStats[files.indexOf(b)].mtime.getTime() - fileStats[files.indexOf(a)].mtime.getTime());
+    // Retornar o primeiro arquivo (o mais recente)
+    return sortedFiles[0];
+  } catch (error) {
+    console.error("Erro ao obter o arquivo mais recente:", error);
+    throw error; // Lança o erro para ser tratado externamente
+  }
+}
+
 
 class Scraper {
   sessionPath = resolve(process.cwd(), "src", "sessions", "bling.json");
@@ -76,7 +92,6 @@ class Scraper {
         console.log('FALHA ao tentar efetuar login Bling', err.message);
         return resolve({ status: 'falha ao tentar efetuar login' });
       }
-
     })
   }
 
@@ -158,7 +173,8 @@ class Scraper {
     });
   }
 
-  async enviaLinkWhatsapp(listaClientes, browser) {
+  async enviaLinkWhatsapp(listaClientes, browser, pastaMes) {
+    pastaMes = resolve(pastaMes);
     const txtFilePath = 'nomes_processados.txt';
     let lastProcessedName = '';
 
@@ -171,109 +187,130 @@ class Scraper {
       console.log('Arquivo de texto não existe ou não pode ser lido:', error.message);
     }
 
-    // Retorna uma promessa
-    return new Promise(async (resolve) => {
-      try {
-        console.log('PERCORRENDO tabela para enviar os links...');
-        let index = 0;
+    try {
+      console.log('PERCORRENDO tabela para enviar os links...');
+      let index = 0;
 
-        const nomesClientes = listaClientes.map(cliente => cliente.nome);
+      const nomesClientes = listaClientes.map(cliente => cliente.nome);
 
-        for await (const client of listaClientes) {
-          let { nome, celular } = client;
+      for await (const client of listaClientes) {
+        let { nome, celular } = client;
 
-          if (lastProcessedName.includes(nome)) {
-            console.log(`Nome "${nome}" já foi processado, pulando para o próximo.`);
-            index++;
-            continue; // Pula para o próximo cliente
-          }
-
-          console.log(`----------`);
-          console.log(`ENVIANDO boleto para ${nome};`);
-          console.log(`CELULAR: ${celular};`);
-          console.log(`----------`);
-
-          if (!nomesClientes.includes(nome)) {
-            console.log(`--------ATENÇÃO--------- `);
-            console.log(`( ${nome} ) NÃO CADASTRADO NA PLANILHA,`);
-            console.log(`------------------------ `);
-            celular = process.env.CELULAR_CONTATO;
-            // index++
-            // continue;
-          }
-          // Seu código para enviar a mensagem via WhatsApp
-          if (!celular || celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO; // Verifica e atribui o celular
-          console.log('passou', index);
-          // Emitindo boleto
-
-          await this.page.evaluate((index) => {
-            document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
-              .querySelector('td:nth-child(10) > div > ul a > span.fas.fa-barcode')
-              .click();
-          }, [index]);
-          await delay(3000);
-          const [, , paginaBoleto] = await browser.pages();
-          await delay(3000)
-          await paginaBoleto.close();
-          await delay(1500);
-          // Acionando o botão de enviar para o WhatsApp
-          await this.page.evaluate((index) => {
-            document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
-              .querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp')
-              .click();
-          }, [index]);
-          await delay(5000);
-
-          // Esperando modal abrir e colocando o numero de telefone
-          await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
-          await this.page.evaluate((celular) => {
-            console.log("celular", celular);
-            celular = "(16) 99243-6784";
-            document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
-            document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
-            return Promise.resolve();
-          }, celular);
-          await delay(500);
-
-          await this.page.evaluate(() => Promise.resolve(document.querySelector('div[role="dialog"] > div:nth-child(3) > div > button').click()));
-          await delay(5000);
-
-          const [, , wpp] = await browser.pages();
-
-          try {
-            await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
-            await delay(3000);
-
-            await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
-            await delay(1000);
-
-            await wpp.type('div[title="Digite uma mensagem"]', `${nome}, estamos entrando em contato para lembrá-lo(a) sobre o vencimento do seu boleto. Segue o link do seu boleto.  Sua pontualidade é fundamental para nós.`)
-            await delay(300);
-
-            await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
-            await delay(2000);
-          } catch (err) {
-            console.log('ATENÇÃO!!!');
-            console.log(`Número de telefone: '${celular}' do cliente: '${nome}' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp.`);
-            await delay(3000);
-          }
-
-          await wpp.close();
-          await delay(1500);
-
-          // Registra o nome no arquivo de texto
-          await appendFile(txtFilePath, `${nome}\n`);
-
-          index++; // Incrementa o índice para avançar para o próximo cliente
+        if (lastProcessedName.includes(nome)) {
+          console.log(`Nome "${nome}" já foi processado, pulando para o próximo.`);
+          index++;
+          continue; // Pula para o próximo cliente
         }
 
-        await unlink(txtFilePath);
+        console.log(`----------`);
+        console.log(`ENVIANDO boleto para ${nome};`);
+        console.log(`CELULAR: ${celular};`);
+        console.log(`----------`);
 
-        return resolve({ status: 'ok', message: 'Boletos enviados com sucesso. Até breve =D' }); // Retorna uma promessa resolvida
-      } catch (err) {
-        return resolve({ status: 'erro', message: 'FALHA ao associar lista de clientes' }); // Retorna uma promessa resolvida com erro
+        if (!nomesClientes.includes(nome)) {
+          // GRAVAR NA PLANILHA DINAMICAMENTE
+          console.log(`--------ATENÇÃO--------- `);
+          console.log(`( ${nome} ) NÃO CADASTRADO NA PLANILHA,`);
+          console.log(`------------------------ `);
+          celular = process.env.CELULAR_CONTATO;
+          // index++
+          // continue;
+        }
+
+        if (!celular || celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO;
+
+        // Emitindo boleto
+        await this.page.evaluate((index) => {
+          document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
+            .querySelector('td:nth-child(10) > div > ul a > span.fas.fa-barcode')
+            .click();
+        }, [index]);
+        await delay(3000);
+        const [, , paginaBoleto] = await browser.pages();
+        const clientS = await paginaBoleto.target().createCDPSession()
+        await clientS.send('Page.setDownloadBehavior', {
+          behavior: 'allow',
+          downloadPath: `${pastaMes}`,
+        });
+
+        await paginaBoleto.waitForNetworkIdle();
+        await delay(5000);
+        for (let i = 1; i < 10; i++) {
+          if (i != 9) {
+            await paginaBoleto.keyboard.press('Tab');
+            await delay(100);
+          } else {
+            await paginaBoleto.keyboard.press('Enter');
+            await delay(1000);
+          }
+        }
+
+        // Renomeando arquivo
+        const latestFile = await getLatestFile(pastaMes);
+        const novoNome = `${nome.replaceAll('/', '-')}-${Date.now()}.pdf`; // Novo nome desejado
+        await rename(join(pastaMes, latestFile), join(pastaMes, novoNome));
+        await paginaBoleto.close();
+
+        await delay(1500);
+        // Acionando o botão de enviar para o WhatsApp
+        await this.page.evaluate((index) => {
+          document.querySelectorAll('div[id="datatable"] > table > tbody > tr')[index]
+            .querySelector('td:nth-child(10) > div > ul a > span.fab.fa-whatsapp')
+            .click();
+        }, [index]);
+        await delay(5000);
+
+        // Esperando modal abrir e colocando o numero de telefone
+        await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
+        await this.page.evaluate((celular) => {
+          console.log("celular", celular);
+          celular = "(16) 99243-6784";
+          document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
+          document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
+          return Promise.resolve();
+        }, celular);
+        await delay(500);
+
+        await this.page.evaluate(() => Promise.resolve(document.querySelector('div[role="dialog"] > div:nth-child(3) > div > button').click()));
+        await delay(5000);
+
+        const [, , wpp] = await browser.pages();
+
+        try {
+          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
+          await delay(3000);
+
+          await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
+          await delay(1000);
+
+          await wpp.type('div[title="Digite uma mensagem"]', `${nome}, estamos entrando em contato para lembrá-lo(a) sobre o vencimento do seu boleto. Segue o link do seu boleto.  Sua pontualidade é fundamental para nós.`)
+          await delay(300);
+
+          await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
+          await delay(2000);
+        } catch (err) {
+          console.log('ATENÇÃO!!!');
+          console.log(`Número de telefone: '${celular}' do cliente: '${nome}' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp.`);
+          await delay(3000);
+        }
+
+        await wpp.close();
+        await delay(1500);
+
+        // Registra o nome no arquivo de texto
+        await appendFile(txtFilePath, `${nome}\n`);
+
+        index++; // Incrementa o índice para avançar para o próximo cliente
       }
-    });
+
+      await unlink(txtFilePath);
+
+      return { status: 'ok', message: 'Boletos enviados com sucesso. Até breve =D' }
+    } catch (err) {
+      console.log(err);
+      return { status: 'erro', message: 'FALHA ao associar lista de clientes' }
+    }
+
   }
 }
 

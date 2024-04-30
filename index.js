@@ -3,13 +3,29 @@ import { resolve } from 'path';
 import BlingScraper from './src/scrapers/BlingScraper.js';
 import fexcelToJson from './src/utils/excelToJson.js';
 import delay from './src/utils/delay.js';
+import { existsSync, mkdirSync } from 'fs';
+import { TentativasLoginExcedidas } from './src/validations/tentativas-login-excedidas.js';
 
 (async () => {
-  // Launch the browser and open a new blank page
+  const agora = new Date();
+  const ano = agora.getFullYear().toString();
+  const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+
+  const pastaAno = resolve(process.cwd(), 'download', ano);
+  const pastaMes = resolve(process.cwd(), 'download', ano, mes);
+
+  // Verifique se as pastas existem, se não, crie-as
+  if (!existsSync(pastaAno)) {
+    mkdirSync(pastaAno, { recursive: true }); // Use recursive: true para criar pastas recursivamente
+  }
+  if (!existsSync(pastaMes)) {
+    mkdirSync(pastaMes, { recursive: true });
+  }
+
   const browser = await puppeteer.launch({
     headless: false,
     slowMo: 10,
-    devtools: true,
+    // devtools: true,
     userDataDir: resolve(process.cwd(), 'temp'),
     defaultViewport: { width: 1366, height: 768 },
     // defaultViewport: { width: 1080, height: 1024 },
@@ -31,48 +47,46 @@ import delay from './src/utils/delay.js';
   // await delay(1000)
   await whatsapp.goto('https://web.whatsapp.com/', { waitUntil: 'networkidle2' })
   await whatsapp.bringToFront();
+
+  // while
+  // let verificaAutenticacaoWpp = await whatsapp.$('div[title="Caixa de texto de pesquisa"]');
+  // while (verificaAutenticacaoWpp == undefined) {
+  //   verificaAutenticacaoWpp = await whatsapp.$('div[title="Caixa de texto de pesquisa"]');
+  // }
+
   await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
 
-  await delay(300);
-  console.log('Meus parabéns você concluiu o primeiro passo =D');
   await delay(300);
   const blingScraper = new BlingScraper(bling);
 
   let tries = 3;
-  let statusLoginBling = false
-
   while (tries != 0) {
     const blingLogin = await blingScraper.login();
     if (blingLogin.status == 'logado') {
-      statusLoginBling = true
       break;
     }
     tries--
     if (tries == 0) {
-      console.log('Tentativas de Login na plataforma BLING ESGOTADAS!');
+      throw new Error(new TentativasLoginExcedidas());
     }
   }
 
-  if (statusLoginBling) {
-    const pegaListaClientes = await blingScraper.buscaListaClientes();
-    const baseTelefonesParaJson = await fexcelToJson();
-    if (baseTelefonesParaJson.status === 'ok') {
-      const listaTelefonesAssociados = await blingScraper.associaTelefones(pegaListaClientes.clientes);
-      if (listaTelefonesAssociados.status === 'ok') {
-        const enviaLinkWpp = await blingScraper.enviaLinkWhatsapp(listaTelefonesAssociados.clientes, browser);
-        if (enviaLinkWpp.status == 'ok') {
-          console.log(enviaLinkWpp.message);
-          await browser.close();
-        }
-      } else {
-        console.log(listaTelefonesAssociados.message);
+  const pegaListaClientes = await blingScraper.buscaListaClientes();
+  const baseTelefonesParaJson = await fexcelToJson();
+  if (baseTelefonesParaJson.status === 'ok') {
+    const listaTelefonesAssociados = await blingScraper.associaTelefones(pegaListaClientes.clientes);
+    if (listaTelefonesAssociados.status === 'ok') {
+      const enviaLinkWpp = await blingScraper.enviaLinkWhatsapp(listaTelefonesAssociados.clientes, browser, pastaMes);
+      if (enviaLinkWpp.status == 'ok') {
+        console.log(enviaLinkWpp.message);
+        await browser.close();
       }
     } else {
-      console.log(baseTelefonesParaJson.message);
+      console.log(listaTelefonesAssociados.message);
     }
   } else {
-    console.log('Não foi possível efetuar login no BLING =(');
-    await browser.close();
+    console.log(baseTelefonesParaJson.message);
   }
+
 
 })();
