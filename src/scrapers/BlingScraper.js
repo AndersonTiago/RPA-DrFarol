@@ -111,8 +111,7 @@ class Scraper {
         await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).evaluate((e) => e.click());
         await delay(500);
 
-        // const numeroMes = Number(new Date().getMonth()) + 2 // próximo mês       
-        const numeroMes = Number(new Date().getMonth()) + 1 // próximo mês       
+        const numeroMes = Number(new Date().getMonth()) + 2 // próximo mês
         await this.page.evaluate((numeroMes) => {
           document.querySelector(`#dialog-picker > div.input-daterange > div:nth-child(1) > div > div.datepicker-months > table > tbody > tr > td > span:nth-child(${numeroMes})`).click()
           return Promise.resolve();
