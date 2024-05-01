@@ -15,10 +15,6 @@
   "dependencies": {
     "convert-excel-to-json": "^1.7.0",
     "dotenv": "^16.4.5",
-    "puppeteer": "^22.6.1",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-adblocker": "^2.13.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "puppeteer-extra-plugin-user-preferences": "^2.4.1"
+    "puppeteer": "^22.6.1"
   }
 }

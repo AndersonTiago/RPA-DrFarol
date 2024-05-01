@@ -111,7 +111,8 @@ class Scraper {
         await (await this.page.$('#dialog-picker > div.group-buttons.Grid-inner > div:nth-child(2) > button')).evaluate((e) => e.click());
         await delay(500);
 
-        const numeroMes = Number(new Date().getMonth()) + 2 // próximo mês        
+        // const numeroMes = Number(new Date().getMonth()) + 2 // próximo mês       
+        const numeroMes = Number(new Date().getMonth()) + 1 // próximo mês       
         await this.page.evaluate((numeroMes) => {
           document.querySelector(`#dialog-picker > div.input-daterange > div:nth-child(1) > div > div.datepicker-months > table > tbody > tr > td > span:nth-child(${numeroMes})`).click()
           return Promise.resolve();
@@ -183,9 +184,7 @@ class Scraper {
       await access(txtFilePath);
       const txtContent = await readFile(txtFilePath, 'utf8');
       lastProcessedName = txtContent.trim();
-    } catch (error) {
-      console.log('Arquivo de texto não existe ou não pode ser lido:', error.message);
-    }
+    } catch (error) { }
 
     try {
       console.log('PERCORRENDO tabela para enviar os links...');
@@ -247,7 +246,7 @@ class Scraper {
 
         // Renomeando arquivo
         const latestFile = await getLatestFile(pastaMes);
-        const novoNome = `${nome.replaceAll('/', '-')}-${Date.now()}.pdf`; // Novo nome desejado
+        const novoNome = `${nome.replaceAll('/', '-')}-${Date.now()}.pdf`;
         await rename(join(pastaMes, latestFile), join(pastaMes, novoNome));
         await paginaBoleto.close();
 
@@ -264,7 +263,8 @@ class Scraper {
         await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
         await this.page.evaluate((celular) => {
           console.log("celular", celular);
-          celular = "(16) 99243-6784";
+          celular = "(16) 99404-2022";
+          // celular = "(16) 99243-6784";
           document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
           document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
           return Promise.resolve();
@@ -300,7 +300,8 @@ class Scraper {
         // Registra o nome no arquivo de texto
         await appendFile(txtFilePath, `${nome}\n`);
 
-        index++; // Incrementa o índice para avançar para o próximo cliente
+        // Incrementa o índice para avançar para o próximo cliente
+        index++;
       }
 
       await unlink(txtFilePath);

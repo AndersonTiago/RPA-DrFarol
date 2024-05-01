@@ -16,7 +16,7 @@ import { TentativasLoginExcedidas } from './src/validations/tentativas-login-exc
 
   // Verifique se as pastas existem, se não, crie-as
   if (!existsSync(pastaAno)) {
-    mkdirSync(pastaAno, { recursive: true }); // Use recursive: true para criar pastas recursivamente
+    mkdirSync(pastaAno, { recursive: true });
   }
   if (!existsSync(pastaMes)) {
     mkdirSync(pastaMes, { recursive: true });
@@ -28,33 +28,36 @@ import { TentativasLoginExcedidas } from './src/validations/tentativas-login-exc
     // devtools: true,
     userDataDir: resolve(process.cwd(), 'temp'),
     defaultViewport: { width: 1366, height: 768 },
-    // defaultViewport: { width: 1080, height: 1024 },
   });
 
   await browser.newPage()
   const [whatsapp, bling] = await browser.pages();
 
   console.log('...RPA start...');
-  // await delay(3000);
+  await delay(3000);
   console.log('........... AVISO ..............');
   console.log('Para total funcionamento do RPA, a base de telefones deve estar atualizada');
   console.log('e com números que contenham whatsapp, caso contrário um alerta será emitido');
   console.log('informando o número inválido e o cliente.');
   console.log('Caso aconteça, solicito a troca do número do cliente em questão na base.');
   console.log('................................');
-  // await delay(10000);
+  await delay(10000);
   console.log('Primeramente sincronize seu whatsapp na página que irá aparecer.');
-  // await delay(1000)
+  await delay(1000)
   await whatsapp.goto('https://web.whatsapp.com/', { waitUntil: 'networkidle2' })
   await whatsapp.bringToFront();
 
-  // while
-  // let verificaAutenticacaoWpp = await whatsapp.$('div[title="Caixa de texto de pesquisa"]');
-  // while (verificaAutenticacaoWpp == undefined) {
-  //   verificaAutenticacaoWpp = await whatsapp.$('div[title="Caixa de texto de pesquisa"]');
-  // }
+  let authenticated = false;
 
-  await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
+  while (!authenticated) {
+    try {
+      await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
+      authenticated = true;
+    } catch (error) {
+      console.log("Ainda não autenticado. Tentando novamente...");
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
 
   await delay(300);
   const blingScraper = new BlingScraper(bling);
