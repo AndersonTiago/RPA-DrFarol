@@ -51,7 +51,7 @@ import { TentativasLoginExcedidas } from './src/validations/tentativas-login-exc
 
   while (!authenticated) {
     try {
-      await whatsapp.waitForSelector('div[title="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
+      await whatsapp.waitForSelector('div[aria-label="Caixa de texto de pesquisa"]', { visible: true, timeout: 0 });
       authenticated = true;
     } catch (error) {
       console.log("Ainda não autenticado. Tentando novamente...");
