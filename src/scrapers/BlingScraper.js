@@ -176,6 +176,7 @@ class Scraper {
   async enviaLinkWhatsapp(listaClientes, browser, pastaMes) {
     pastaMes = resolve(pastaMes);
     const txtFilePath = 'nomes_processados.txt';
+    const errorFile = 'ErrosGeracaoBoleto.txt'
     let lastProcessedName = '';
 
     // Verifica se o arquivo JSON já existe
@@ -183,7 +184,11 @@ class Scraper {
       await access(txtFilePath);
       const txtContent = await readFile(txtFilePath, 'utf8');
       lastProcessedName = txtContent.trim();
-    } catch (error) { }
+    } catch (error) {
+      try {
+        await unlink(errorFile);
+      } catch (error) { }
+    }
 
     try {
       console.log('PERCORRENDO tabela para enviar os links...');
@@ -200,19 +205,20 @@ class Scraper {
           continue; // Pula para o próximo cliente
         }
 
+        /*
         console.log(`----------`);
         console.log(`ENVIANDO boleto para ${nome};`);
         console.log(`CELULAR: ${celular};`);
         console.log(`----------`);
+        */
 
         if (!nomesClientes.includes(nome)) {
-          // GRAVAR NA PLANILHA DINAMICAMENTE
           console.log(`--------ATENÇÃO--------- `);
           console.log(`( ${nome} ) NÃO CADASTRADO NA PLANILHA,`);
           console.log(`------------------------ `);
           celular = process.env.CELULAR_CONTATO;
-          // index++
-          // continue;
+
+          await appendFile(errorFile, `( ${nome} NÃO CADASTRADO NA PLANILHA - cadastrar cliente na base de telefones)\n`);
         }
 
         if (!celular || celular == '' || celular == undefined) celular = process.env.CELULAR_CONTATO;
@@ -245,8 +251,14 @@ class Scraper {
 
         // Renomeando arquivo
         const latestFile = await getLatestFile(pastaMes);
-        const novoNome = `${nome.replaceAll('/', '-')}-${Date.now()}.pdf`;
-        await rename(join(pastaMes, latestFile), join(pastaMes, novoNome));
+
+        if (latestFile.split(' ').length == 1) {
+          const novoNome = `${nome.replaceAll('/', '-')}-${Date.now()}.pdf`;
+          await rename(join(pastaMes, latestFile), join(pastaMes, novoNome));
+        } else {
+          console.log(`( ERRO na geração de boleto cliente: ${nome} )`);
+          await appendFile(errorFile, `( ERRO na geração de boleto cliente: ${nome} ) - Efetuar download do boleto\n`);
+        }
         await paginaBoleto.close();
 
         await delay(1500);
@@ -262,8 +274,8 @@ class Scraper {
         await this.page.waitForSelector('div[role="dialog"]', { timeout: 60000 });
         await this.page.evaluate((celular) => {
           console.log("celular", celular);
-          celular = "(16) 99404-2022";
-          // celular = "(16) 99243-6784";
+          // celular = "(16) 99404-2022";
+          celular = "(16) 99243-6784";
           document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = "";
           document.querySelector('div[role="dialog"] > div:nth-child(2)>div > div > input').value = celular;
           return Promise.resolve();
@@ -276,13 +288,13 @@ class Scraper {
         const [, , wpp] = await browser.pages();
 
         try {
-          await wpp.waitForSelector('div[title="Digite uma mensagem"]', { timeout: 80000 });
+          await wpp.waitForSelector('div[aria-label="Digite uma mensagem"]', { timeout: 80000 });
           await delay(3000);
 
           await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
           await delay(1000);
 
-          await wpp.type('div[title="Digite uma mensagem"]', `${nome}, estamos entrando em contato para lembrá-lo(a) sobre o vencimento do seu boleto. Segue o link do seu boleto.  Sua pontualidade é fundamental para nós.`)
+          await wpp.type('div[aria-label="Digite uma mensagem"]', `${nome}, estamos entrando em contato para lembrá-lo(a) sobre o vencimento do seu boleto. Segue o link do seu boleto.  Sua pontualidade é fundamental para nós.`)
           await delay(300);
 
           await (await wpp.$('button[aria-label="Enviar"]')).evaluate((e) => e.click());
@@ -290,6 +302,8 @@ class Scraper {
         } catch (err) {
           console.log('ATENÇÃO!!!');
           console.log(`Número de telefone: '${celular}' do cliente: '${nome}' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp.`);
+
+          await appendFile(errorFile, `(Número de telefone: '${celular}' do cliente: '${nome}' é inválido, por favor atualizar na base de dados com um número que contenha whatsapp - Enviar boleto para o cliente manualmente)\n`);
           await delay(3000);
         }
 
